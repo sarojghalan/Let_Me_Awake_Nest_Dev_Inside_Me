@@ -1,9 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { CatFuncMiddleWare } from './cats/cats.middleware';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  console.log('am i ready to run');
+  app.use(CatFuncMiddleWare);
   await app.listen(3000);
 }
 bootstrap();

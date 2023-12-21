@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { CatsController } from './cats.controller';
 import { CatService } from './cats.service';
 
+// if want to export module everywhere
+// @Global()
 @Module({
   controllers: [CatsController],
   providers: [CatService],
@@ -9,4 +11,7 @@ import { CatService } from './cats.service';
   // we need to export it
   exports: [CatService],
 })
-export class CatsModule {}
+export class CatsModule {
+  // dependency injection
+  constructor(private catsService: CatService) {}
+}
