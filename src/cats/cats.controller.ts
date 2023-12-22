@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Param,
+  Post,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { CreateCatDto } from './create-cat.dto';
 import { CatService } from './cats.service';
 
@@ -15,6 +23,16 @@ export class CatsController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return `This action removes a #${id} cat.`;
+    // customizing HttpStatus response
+    throw new HttpException(
+      {
+        status: HttpStatus.FORBIDDEN,
+        error: 'This is a custom message',
+      },
+      HttpStatus.FORBIDDEN,
+      {
+        cause: id,
+      },
+    );
   }
 }
