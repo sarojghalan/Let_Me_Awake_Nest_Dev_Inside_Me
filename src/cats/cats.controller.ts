@@ -6,6 +6,7 @@ import {
   Post,
   HttpException,
   HttpStatus,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { CreateCatDto } from './create-cat.dto';
 import { CatService } from './cats.service';
@@ -22,7 +23,9 @@ export class CatsController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  // binding instance of ParseIntPipe to
+  // ensure our parameter is a number
+  remove(@Param('id', ParseIntPipe) id: string) {
     // customizing HttpStatus response
     throw new HttpException(
       {
